@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,6 +32,11 @@ class AppRepository{
       currenciesList.add(localRes);
     }
     getCurrencies();
+    Connectivity().onConnectivityChanged.listen((event) {
+      if(event != ConnectivityResult.none){
+        getCurrencies();
+      }
+    });
   }
 
   /// Получение всех [CurrencyModel] в зависимости от наличия интернет подключения
